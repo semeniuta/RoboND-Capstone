@@ -49,7 +49,7 @@ void log_send_goal(const move_base_msgs::MoveBaseGoal& goal) {
 
 int main(int argc, char **argv) {
     
-    ros::init(argc, argv, "simple_navigation_goals");
+    ros::init(argc, argv, "pick_objects");
 
     //tell the action client that we want to spin a thread by default
     MoveBaseClient ac{"move_base", true};
