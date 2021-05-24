@@ -35,7 +35,7 @@ move_base_msgs::MoveBaseGoal create_move_base_msg(double x, double y, double z, 
 void log_send_goal(const move_base_msgs::MoveBaseGoal& goal) {
 
     ROS_INFO(
-        "Sending goal: pos=[%.3f %.3f %.3f] orient=[%3f %.3f %.3f %.3f]",
+        "Sending goal: pos=[%.3f %.3f %.3f] orient=[%.3f %.3f %.3f %.3f]",
         goal.target_pose.pose.position.x,
         goal.target_pose.pose.position.y,
         goal.target_pose.pose.position.z,
