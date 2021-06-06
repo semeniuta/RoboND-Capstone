@@ -48,3 +48,5 @@ turtlebot_simulator
 yocs_msgs
 yujin_ocs (with removed yocs_ar_pair_tracking, yocs_ar_marker_tracking)
 
+
+https://answers.ros.org/question/287670/run-rviz-with-configuration-file-from-launch-file/
