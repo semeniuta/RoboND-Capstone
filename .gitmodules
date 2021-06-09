@@ -16,3 +16,6 @@
 [submodule "dependencies/turtlebot_apps"]
 	path = dependencies/turtlebot_apps
 	url = https://github.com/turtlebot/turtlebot_apps
+[submodule "dependencies/turtlebot_create"]
+	path = dependencies/turtlebot_create
+	url = https://github.com/turtlebot/turtlebot_create
