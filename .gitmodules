@@ -13,3 +13,6 @@
 [submodule "dependencies/turtlebot"]
 	path = dependencies/turtlebot
 	url = https://github.com/turtlebot/turtlebot
+[submodule "dependencies/turtlebot_apps"]
+	path = dependencies/turtlebot_apps
+	url = https://github.com/turtlebot/turtlebot_apps
