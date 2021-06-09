@@ -33,6 +33,48 @@ Results:
 /home/alex/RoboND/capstone_ws/src/dependencies/yujin_ocs/yocs_controllers
 /home/alex/RoboND/capstone_ws/src/dependencies/yujin_ocs/yocs_velocity_smoother
 
+The same for turtlebot_teleop:
+
+/home/alex/RoboND/capstone_ws/src/dependencies/kobuki/kobuki_auto_docking
+/home/alex/RoboND/capstone_ws/src/dependencies/kobuki/kobuki_bumper2pc
+/home/alex/RoboND/capstone_ws/src/dependencies/kobuki/kobuki_capabilities
+/home/alex/RoboND/capstone_ws/src/dependencies/kobuki/kobuki_description
+/home/alex/RoboND/capstone_ws/src/dependencies/kobuki/kobuki_keyop
+/home/alex/RoboND/capstone_ws/src/dependencies/kobuki/kobuki_node
+/home/alex/RoboND/capstone_ws/src/dependencies/kobuki/kobuki_random_walker
+/home/alex/RoboND/capstone_ws/src/dependencies/kobuki/kobuki_rapps
+/home/alex/RoboND/capstone_ws/src/dependencies/kobuki/kobuki_safety_controller
+/home/alex/RoboND/capstone_ws/src/dependencies/turtlebot_create/create_description
+/home/alex/RoboND/capstone_ws/src/dependencies/turtlebot_create/create_driver
+/home/alex/RoboND/capstone_ws/src/dependencies/turtlebot_create/create_node
+/home/alex/RoboND/capstone_ws/src/dependencies/turtlebot/turtlebot_bringup
+/home/alex/RoboND/capstone_ws/src/dependencies/turtlebot/turtlebot_capabilities
+/home/alex/RoboND/capstone_ws/src/dependencies/turtlebot/turtlebot_description
+/home/alex/RoboND/capstone_ws/src/dependencies/yujin_ocs/yocs_cmd_vel_mux
+/home/alex/RoboND/capstone_ws/src/dependencies/yujin_ocs/yocs_controllers
+/home/alex/RoboND/capstone_ws/src/dependencies/yujin_ocs/yocs_velocity_smoother
+
+The same for turtlebot_rviz_launchers:
+
+/home/alex/RoboND/capstone_ws/src/dependencies/kobuki/kobuki_auto_docking
+/home/alex/RoboND/capstone_ws/src/dependencies/kobuki/kobuki_bumper2pc
+/home/alex/RoboND/capstone_ws/src/dependencies/kobuki/kobuki_capabilities
+/home/alex/RoboND/capstone_ws/src/dependencies/kobuki/kobuki_description
+/home/alex/RoboND/capstone_ws/src/dependencies/kobuki/kobuki_keyop
+/home/alex/RoboND/capstone_ws/src/dependencies/kobuki/kobuki_node
+/home/alex/RoboND/capstone_ws/src/dependencies/kobuki/kobuki_random_walker
+/home/alex/RoboND/capstone_ws/src/dependencies/kobuki/kobuki_rapps
+/home/alex/RoboND/capstone_ws/src/dependencies/kobuki/kobuki_safety_controller
+/home/alex/RoboND/capstone_ws/src/dependencies/turtlebot_create/create_description
+/home/alex/RoboND/capstone_ws/src/dependencies/turtlebot_create/create_driver
+/home/alex/RoboND/capstone_ws/src/dependencies/turtlebot_create/create_node
+/home/alex/RoboND/capstone_ws/src/dependencies/turtlebot/turtlebot_bringup
+/home/alex/RoboND/capstone_ws/src/dependencies/turtlebot/turtlebot_capabilities
+/home/alex/RoboND/capstone_ws/src/dependencies/turtlebot/turtlebot_description
+/home/alex/RoboND/capstone_ws/src/dependencies/turtlebot/turtlebot_teleop
+/home/alex/RoboND/capstone_ws/src/dependencies/yujin_ocs/yocs_cmd_vel_mux
+/home/alex/RoboND/capstone_ws/src/dependencies/yujin_ocs/yocs_controllers
+/home/alex/RoboND/capstone_ws/src/dependencies/yujin_ocs/yocs_velocity_smoother
 
 Denendencies (Git repos) on the first successful attempt to launch urtlebot_gazebo/turtlebot_world.launch:
 
