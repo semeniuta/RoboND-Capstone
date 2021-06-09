@@ -52,7 +52,7 @@ https://answers.ros.org/question/287670/run-rviz-with-configuration-file-from-la
 
 ROS packages called in launch scripts (src/script/launch_*.sh):
 
-turtlebot_rviz_launchers
-turtlebot_teleop
-turtlebot_gazebo
-gmapping
+turtlebot_rviz_launchers (repo: turtlebot_interactions)
+turtlebot_teleop (repo: turtlebot)
+turtlebot_gazebo (repo: turtlebot_simulator)
+gmapping (repo: slam_gmapping)
