@@ -1,3 +1,6 @@
 [submodule "dependencies/kobuki"]
 	path = dependencies/kobuki
 	url = https://github.com/yujinrobot/kobuki.git
+[submodule "dependencies/yujin_ocs"]
+	path = dependencies/yujin_ocs
+	url = https://github.com/yujinrobot/yujin_ocs.git
