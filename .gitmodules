@@ -10,3 +10,6 @@
 [submodule "dependencies/slam_gmapping"]
 	path = dependencies/slam_gmapping
 	url = https://github.com/ros-perception/slam_gmapping.git
+[submodule "dependencies/turtlebot"]
+	path = dependencies/turtlebot
+	url = https://github.com/turtlebot/turtlebot
