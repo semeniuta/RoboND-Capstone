@@ -7,7 +7,7 @@ rospack depends turtlebot_gazebo
 rospack list | grep capstone_ws
 rospack list | grep $(pwd)
 
-rospack depends turtlebot_gazebo | xargs -L1 rospack find | grep $(pwd)
+rospack depends turtlebot_gazebo | xargs -L1 rospack find | grep $(pwd) | sort
 
 Results:
 
@@ -48,5 +48,11 @@ turtlebot_simulator
 yocs_msgs
 yujin_ocs (with removed yocs_ar_pair_tracking, yocs_ar_marker_tracking)
 
-
 https://answers.ros.org/question/287670/run-rviz-with-configuration-file-from-launch-file/
+
+ROS packages called in launch scripts (src/script/launch_*.sh):
+
+turtlebot_rviz_launchers
+turtlebot_teleop
+turtlebot_gazebo
+gmapping
