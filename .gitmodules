@@ -7,3 +7,6 @@
 [submodule "dependencies/kobuki_desktop"]
 	path = dependencies/kobuki_desktop
 	url = https://github.com/yujinrobot/kobuki_desktop.git
+[submodule "dependencies/slam_gmapping"]
+	path = dependencies/slam_gmapping
+	url = https://github.com/ros-perception/slam_gmapping.git
