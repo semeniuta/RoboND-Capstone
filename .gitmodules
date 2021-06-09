@@ -22,3 +22,6 @@
 [submodule "dependencies/turtlebot_interactions"]
 	path = dependencies/turtlebot_interactions
 	url = https://github.com/turtlebot/turtlebot_interactions
+[submodule "dependencies/turtlebot_simulator"]
+	path = dependencies/turtlebot_simulator
+	url = https://github.com/turtlebot/turtlebot_simulator
