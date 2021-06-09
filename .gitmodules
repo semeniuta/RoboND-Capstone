@@ -19,3 +19,6 @@
 [submodule "dependencies/turtlebot_create"]
 	path = dependencies/turtlebot_create
 	url = https://github.com/turtlebot/turtlebot_create
+[submodule "dependencies/turtlebot_interactions"]
+	path = dependencies/turtlebot_interactions
+	url = https://github.com/turtlebot/turtlebot_interactions
