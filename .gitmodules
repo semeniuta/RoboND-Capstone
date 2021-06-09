@@ -25,3 +25,6 @@
 [submodule "dependencies/turtlebot_simulator"]
 	path = dependencies/turtlebot_simulator
 	url = https://github.com/turtlebot/turtlebot_simulator
+[submodule "dependencies/yocs_msgs"]
+	path = dependencies/yocs_msgs
+	url = https://github.com/yujinrobot/yocs_msgs.git
