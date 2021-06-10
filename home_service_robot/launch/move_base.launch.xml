@@ -1,5 +1,8 @@
 <!-- 
     ROS navigation stack with velocity smoother and safety (reactive) controller
+
+    Based on turtlebot_navigation/launch/includes/move_base.launch.xml,
+    to be used with custom costmap_common_params.yaml
 -->
 <launch>
   <include file="$(find turtlebot_navigation)/launch/includes/velocity_smoother.launch.xml"/>
@@ -13,8 +16,8 @@
   <arg name="custom_param_file" default="$(find turtlebot_navigation)/param/dummy.yaml"/>
 
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
-    <rosparam file="$(find turtlebot_navigation)/param/costmap_common_params.yaml" command="load" ns="global_costmap" />
-    <rosparam file="$(find turtlebot_navigation)/param/costmap_common_params.yaml" command="load" ns="local_costmap" />   
+    <rosparam file="$(find home_service_robot)/param/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find home_service_robot)/param/costmap_common_params.yaml" command="load" ns="local_costmap" />   
     <rosparam file="$(find turtlebot_navigation)/param/local_costmap_params.yaml" command="load" />   
     <rosparam file="$(find turtlebot_navigation)/param/global_costmap_params.yaml" command="load" />
     <rosparam file="$(find turtlebot_navigation)/param/dwa_local_planner_params.yaml" command="load" />

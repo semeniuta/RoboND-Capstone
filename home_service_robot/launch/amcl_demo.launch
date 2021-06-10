@@ -1,7 +1,12 @@
+<!--
+  Based on turtlebot_simulator/turtlebot_gazebo/launch/amcl_demo.launch,
+  to be used with custom move_base.launch.xml
+-->
+
 <launch>
   <!-- Map server -->
-  <arg name="map_file" default="$(env TURTLEBOT_GAZEBO_MAP_FILE)"/>
-  <arg name="3d_sensor" default="$(env TURTLEBOT_3D_SENSOR)"/>  <!-- r200, kinect, asus_xtion_pro -->
+  <arg name="map_file" default="$(find home_service_robot)/maps/world_map.yaml"/>
+  <arg name="3d_sensor" default="kinect"/>
 
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
 
@@ -18,5 +23,5 @@
   </include>
 
   <!-- Move base -->
- <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml"/>
+ <include file="$(find home_service_robot)/launch/move_base.launch.xml"/>
 </launch>
