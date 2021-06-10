@@ -1,3 +1,3 @@
 #!/bin/bash
 
-roslaunch turtlebot_rviz_launchers view_navigation.launch
+roslaunch home_service_robot view_navigation.launch
