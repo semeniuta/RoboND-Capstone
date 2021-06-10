@@ -207,3 +207,6 @@ include_directories(
 
 add_executable(pick_objects src/pick_objects.cpp)
 target_link_libraries(pick_objects ${catkin_LIBRARIES})
+
+add_executable(add_markers src/add_markers.cpp)
+target_link_libraries(add_markers ${catkin_LIBRARIES})
