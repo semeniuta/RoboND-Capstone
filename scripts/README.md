@@ -98,3 +98,8 @@ turtlebot_rviz_launchers (repo: turtlebot_interactions)
 turtlebot_teleop (repo: turtlebot)
 turtlebot_gazebo (repo: turtlebot_simulator)
 gmapping (repo: slam_gmapping)
+
+Copied and adapted files:
+
+turtlebot_interactions/turtlebot_rviz_launchers/launch/view_navigation.launch
+turtlebot_interactions/turtlebot_rviz_launchers/rviz/navigation.rviz
