@@ -52,12 +52,24 @@ int main(int argc, char **argv)
     ros::init(argc, argv, "add_markers");
     ros::NodeHandle n;
     ros::Rate r(1);
-    ros::Publisher marker_pub = n.advertise<visualization_msgs::Marker>("visualization_marker", 1);    
+    ros::Publisher marker_pub = n.advertise<visualization_msgs::Marker>("visualization_marker", 1);
+
+    visualization_msgs::Marker marker = prepare_marker(0, 1);
+    marker.action = visualization_msgs::Marker::ADD;
 
     while (ros::ok())
     {
-        visualization_msgs::Marker marker = prepare_marker(0, 1);
-        marker.action = visualization_msgs::Marker::ADD;
+        
+        switch (marker.action) {
+            
+            case visualization_msgs::Marker::ADD:
+                marker.action = visualization_msgs::Marker::DELETE;
+                break;
+
+            case visualization_msgs::Marker::DELETE:
+                marker.action = visualization_msgs::Marker::ADD;
+                break;
+        } 
 
         // Publish the marker
         while (marker_pub.getNumSubscribers() < 1)
