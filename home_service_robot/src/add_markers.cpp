@@ -4,10 +4,42 @@
 #include <ros/ros.h>
 #include <visualization_msgs/Marker.h>
 
+struct MarkerPosition {
+
+    MarkerPosition(double x_init, double y_init) : x{x_init}, y{y_init} { }
+
+    double x;
+    double y;
+    
+};
+
+class Cycler {
+
+private:
+    
+    std::array<MarkerPosition, 2> positions;
+    int current = 0;
+
+public:
+
+    Cycler(const MarkerPosition& p1, const MarkerPosition& p2) : positions{p1, p2} {}
+
+    void next() {
+        current = (current == 0) ? 1 : 0;
+    }
+
+    const MarkerPosition& getCurrentPosition() {
+        return positions[current];
+    }
+
+};
+
 const uint32_t MARKER_SHAPE = visualization_msgs::Marker::CUBE;
 const double MARKER_SIZE = 0.2;
+const MarkerPosition PICKUP_POS{0, 1};
+const MarkerPosition DROPOFF_POS{6, -2};
 
-visualization_msgs::Marker prepare_marker(double x, double y) {
+visualization_msgs::Marker prepare_marker(const MarkerPosition& pos) {
     
     visualization_msgs::Marker marker;
     // Set the frame ID and timestamp.  See the TF tutorials for information on these.
@@ -23,8 +55,8 @@ visualization_msgs::Marker prepare_marker(double x, double y) {
     marker.type = MARKER_SHAPE;
 
     // Set the pose of the marker.  This is a full 6DOF pose relative to the frame/time specified in the header
-    marker.pose.position.x = x;
-    marker.pose.position.y = y;
+    marker.pose.position.x = pos.x;
+    marker.pose.position.y = pos.y;
     marker.pose.position.z = MARKER_SIZE / 2.;
     marker.pose.orientation.x = 0.0;
     marker.pose.orientation.y = 0.0;
@@ -51,23 +83,30 @@ int main(int argc, char **argv)
 {
     ros::init(argc, argv, "add_markers");
     ros::NodeHandle n;
-    ros::Rate r(1);
+    ros::Rate r(1. / 5.);
     ros::Publisher marker_pub = n.advertise<visualization_msgs::Marker>("visualization_marker", 1);
 
-    visualization_msgs::Marker marker = prepare_marker(0, 1);
-    marker.action = visualization_msgs::Marker::ADD;
+    Cycler cycler{PICKUP_POS, DROPOFF_POS};
 
-    while (ros::ok())
-    {
+    visualization_msgs::Marker marker = prepare_marker(cycler.getCurrentPosition());
+    marker.action = visualization_msgs::Marker::ADD;
+    
+    while (ros::ok()) {
         
         switch (marker.action) {
             
             case visualization_msgs::Marker::ADD:
+            
                 marker.action = visualization_msgs::Marker::DELETE;
+            
                 break;
 
             case visualization_msgs::Marker::DELETE:
+
+                cycler.next();
+                marker = prepare_marker(cycler.getCurrentPosition());
                 marker.action = visualization_msgs::Marker::ADD;
+            
                 break;
         } 
 
