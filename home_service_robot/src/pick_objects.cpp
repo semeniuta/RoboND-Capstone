@@ -112,6 +112,10 @@ int main(int argc, char **argv) {
 
     state_pub.publish(create_state_msg("moving_to_dropoff"));
 
+    mover.move_robot(0.5, -3.5);
+    mover.move_robot(3.5, -3.5);
+    mover.move_robot(3.5, -1.5);
+
     mover.move_robot(dropoff_x, dropoff_y);
     state_pub.publish(create_state_msg("at_dropoff"));
     rate.sleep();
