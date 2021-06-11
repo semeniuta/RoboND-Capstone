@@ -59,7 +59,7 @@ int main(int argc, char **argv) {
         ROS_INFO("Waiting for the move_base action server to come up");
     }
 
-    move_base_msgs::MoveBaseGoal goal = create_move_base_msg(0., 1., 0., M_PI / 2.);
+    move_base_msgs::MoveBaseGoal goal = create_move_base_msg(6., -2., 0., M_PI / 2.);
 
     log_send_goal(goal);
     ac.sendGoal(goal);
