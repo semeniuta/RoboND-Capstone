@@ -4,6 +4,7 @@
 #include <ros/ros.h>
 #include <move_base_msgs/MoveBaseAction.h>
 #include <actionlib/client/simple_action_client.h>
+#include <std_msgs/String.h>
 #include <geometry_msgs/Point.h>
 #include <geometry_msgs/Quaternion.h>
 #include <tf2/LinearMath/Quaternion.h>
@@ -79,12 +80,21 @@ public:
 
 };
 
+std_msgs::String create_state_msg(const char* s) {
+
+    std_msgs::String msg;
+    msg.data = s;
+    
+    return msg;
+}
+
 
 int main(int argc, char **argv) {
 
     ros::init(argc, argv, "pick_objects");
     ros::NodeHandle this_node;
-    ros::Rate r(1. / 5.);
+    ros::Rate rate(1. / 5.);
+    ros::Publisher state_pub = this_node.advertise<std_msgs::String>("/home_service_robot/robot_state", 1);
 
     double pickup_x, pickup_y, dropoff_x, dropoff_y;
     this_node.getParam("/home_service_robot/pickup_x", pickup_x);
@@ -92,13 +102,19 @@ int main(int argc, char **argv) {
     this_node.getParam("/home_service_robot/dropoff_x", dropoff_x);
     this_node.getParam("/home_service_robot/dropoff_y", dropoff_y);
 
-    Mover mover;    
+    Mover mover;
+
+    state_pub.publish(create_state_msg("moving_to_pickup"));
 
     mover.move_robot(pickup_x, pickup_y);
-    r.sleep();
+    state_pub.publish(create_state_msg("at_pickup"));
+    rate.sleep();
+
+    state_pub.publish(create_state_msg("moving_to_dropoff"));
 
     mover.move_robot(dropoff_x, dropoff_y);
-    r.sleep();
+    state_pub.publish(create_state_msg("at_dropoff"));
+    rate.sleep();
 
     return 0;
 }
