@@ -46,30 +46,60 @@ void log_send_goal(const move_base_msgs::MoveBaseGoal& goal) {
     );
 }
 
+class Mover {
 
-int main(int argc, char **argv) {
-    
-    ros::init(argc, argv, "pick_objects");
-
+private:
     //tell the action client that we want to spin a thread by default
-    MoveBaseClient ac{"move_base", true};
+    MoveBaseClient action_client_{"move_base", true};
 
-    //wait for the action server to come up
-    while (!ac.waitForServer(ros::Duration(5.0))) {
-        ROS_INFO("Waiting for the move_base action server to come up");
+public:
+
+    Mover() {
+        
+        //wait for the action server to come up
+        while (!action_client_.waitForServer(ros::Duration(5.0)))
+        {
+            ROS_INFO("Waiting for the move_base action server to come up");
+        }
     }
 
-    move_base_msgs::MoveBaseGoal goal = create_move_base_msg(6., -2., 0., M_PI / 2.);
 
-    log_send_goal(goal);
-    ac.sendGoal(goal);
+    void move_robot(double x, double y, double yaw = 0.) {
 
-    ac.waitForResult();
+        move_base_msgs::MoveBaseGoal goal = create_move_base_msg(x, y, 0., yaw);
 
-    if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
-        ROS_INFO("Hooray, the base moved");
-    else
-        ROS_INFO("The base failed to move");
+        log_send_goal(goal);
+        action_client_.sendGoal(goal);
+        action_client_.waitForResult();
+
+        if (action_client_.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
+            ROS_INFO("Destination reached");
+        else
+            ROS_INFO("The base failed to move");
+    }
+
+};
+
+
+int main(int argc, char **argv) {
+
+    ros::init(argc, argv, "pick_objects");
+    ros::NodeHandle this_node;
+    ros::Rate r(1. / 5.);
+
+    double pickup_x, pickup_y, dropoff_x, dropoff_y;
+    this_node.getParam("/home_service_robot/pickup_x", pickup_x);
+    this_node.getParam("/home_service_robot/pickup_y", pickup_y);
+    this_node.getParam("/home_service_robot/dropoff_x", dropoff_x);
+    this_node.getParam("/home_service_robot/dropoff_y", dropoff_y);
+
+    Mover mover;    
+
+    mover.move_robot(pickup_x, pickup_y);
+    r.sleep();
+
+    mover.move_robot(dropoff_x, dropoff_y);
+    r.sleep();
 
     return 0;
 }
