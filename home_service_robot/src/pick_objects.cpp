@@ -11,7 +11,6 @@
 
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 
-
 move_base_msgs::MoveBaseGoal create_move_base_msg(double x, double y, double z, double yaw) {
 
     move_base_msgs::MoveBaseGoal goal;
