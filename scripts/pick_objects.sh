@@ -12,4 +12,5 @@ sleep 2
 xterm -e "./launch_rviz.sh" &
 sleep 5
 
-xterm -e "rosrun home_service_robot pick_objects"
+#xterm -e "rosrun home_service_robot pick_objects"
+xterm -e "roslaunch home_service_robot pick_objects.launch"
