@@ -103,3 +103,16 @@ Copied and adapted files:
 
 turtlebot_interactions/turtlebot_rviz_launchers/launch/view_navigation.launch
 turtlebot_interactions/turtlebot_rviz_launchers/rviz/navigation.rviz
+
+Unused code with ROS parameters:
+
+<param name="/home_service_robot/pickup_x" type="double" value="0.0" /> 
+<param name="/home_service_robot/pickup_y" type="double" value="1.0" />
+<param name="/home_service_robot/dropoff_x" type="double" value="6.0" />
+<param name="/home_service_robot/dropoff_y" type="double" value="-2.0" />
+
+double pickup_x, pickup_y, dropoff_x, dropoff_y;
+this_node.getParam("/home_service_robot/pickup_x", pickup_x);
+this_node.getParam("/home_service_robot/pickup_y", pickup_y);
+this_node.getParam("/home_service_robot/dropoff_x", dropoff_x);
+this_node.getParam("/home_service_robot/dropoff_y", dropoff_y);

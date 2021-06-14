@@ -9,6 +9,10 @@
 #include <geometry_msgs/Quaternion.h>
 #include <tf2/LinearMath/Quaternion.h>
 #include <math.h>
+#include <fstream>
+#include <sstream>
+#include <vector>
+#include <array>
 
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 
@@ -88,19 +92,53 @@ std_msgs::String create_state_msg(const char* s) {
     return msg;
 }
 
+using PathViaPoints = std::vector<std::array<double, 2>>;
+
+PathViaPoints read_path(char *filename) {
+
+    std::ifstream in{filename};
+    if (!in) {
+        ROS_ERROR("Failure to open path configuration file");
+    }
+
+    std::string line;
+    double x;
+    double y;
+    PathViaPoints points;
+
+    while (std::getline(in, line)) {
+        std::stringstream line_in{line};
+        line_in >> x >> y;
+        points.push_back({x, y});
+    }
+
+    return points;
+
+}
 
 int main(int argc, char **argv) {
+
+    if (argc == 1) {
+        ROS_ERROR("Provide file name of the path configuration file");
+        return -1;
+    }
+
+    char *conf = argv[1];
+    ROS_INFO("Path configuration file: %s", conf);
+
+    auto path = read_path(conf);
 
     ros::init(argc, argv, "pick_objects");
     ros::NodeHandle this_node;
     ros::Rate rate(1. / 5.);
     ros::Publisher state_pub = this_node.advertise<std_msgs::String>("/home_service_robot/robot_state", 1);
+    
+    double pickup_x = path[0][0];
+    double pickup_y = path[0][1];
 
-    double pickup_x, pickup_y, dropoff_x, dropoff_y;
-    this_node.getParam("/home_service_robot/pickup_x", pickup_x);
-    this_node.getParam("/home_service_robot/pickup_y", pickup_y);
-    this_node.getParam("/home_service_robot/dropoff_x", dropoff_x);
-    this_node.getParam("/home_service_robot/dropoff_y", dropoff_y);
+    unsigned int last_idx = path.size() - 1;
+    double dropoff_x = path[last_idx][0];
+    double dropoff_y = path[last_idx][1];
 
     Mover mover;
 
@@ -112,13 +150,17 @@ int main(int argc, char **argv) {
 
     state_pub.publish(create_state_msg("moving_to_dropoff"));
 
-    mover.move_robot(0.5, -3.5);
-    mover.move_robot(3.5, -3.5);
-    mover.move_robot(3.5, -1.5);
+    double via_x, via_y;
+    for (unsigned int i = 1; i < last_idx; i++) {
+        via_x = path[i][0];
+        via_y = path[i][1];
+        ROS_INFO("Moving to via-point [%.2f, %.2f]", via_x, via_y);
+
+        mover.move_robot(via_x, via_y);
+    }
 
     mover.move_robot(dropoff_x, dropoff_y);
     state_pub.publish(create_state_msg("at_dropoff"));
-    rate.sleep();
 
     return 0;
 }

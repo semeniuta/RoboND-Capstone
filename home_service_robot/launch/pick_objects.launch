@@ -1,11 +1,5 @@
 <launch>
 
-    <param name="/home_service_robot/pickup_x" type="double" value="0.0" /> 
-    <param name="/home_service_robot/pickup_y" type="double" value="1.0" />
-    <param name="/home_service_robot/dropoff_x" type="double" value="6.0" />
-    <param name="/home_service_robot/dropoff_y" type="double" value="-2.0" />
-
-    <node name="pick_objects" type="pick_objects" pkg="home_service_robot" output="screen">    
-    </node>
+    <node name="pick_objects" type="pick_objects" pkg="home_service_robot" output="screen" args="$(find home_service_robot)/config/path.txt" />
 
 </launch>
