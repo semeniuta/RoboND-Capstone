@@ -28,3 +28,6 @@
 [submodule "dependencies/yocs_msgs"]
 	path = dependencies/yocs_msgs
 	url = https://github.com/yujinrobot/yocs_msgs.git
+[submodule "my_robot_world"]
+	path = my_robot_world
+	url = https://github.com/semeniuta/RoboND-my_robot_world.git
