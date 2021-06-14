@@ -1,54 +1,68 @@
-// Based on
-// http://wiki.ros.org/rviz/Tutorials/Markers%3A%20Basic%20Shapes
-
 #include "markers.h"
+#include <std_msgs/String.h>
 
 const MarkerPosition PICKUP_POS{0, 1};
 const MarkerPosition DROPOFF_POS{6, -2};
 
-int main(int argc, char **argv)
-{
-    ros::init(argc, argv, "sync_markers");
-    ros::NodeHandle n;
-    ros::Rate r(1. / 5.);
-    ros::Publisher marker_pub = n.advertise<visualization_msgs::Marker>("visualization_marker", 1);
+class MarkerManager {
 
-    Cycler cycler{PICKUP_POS, DROPOFF_POS};
+private:
 
-    visualization_msgs::Marker marker = prepare_marker(cycler.getCurrentPosition());
-    marker.action = visualization_msgs::Marker::ADD;
-    
-    while (ros::ok()) {
-        
-        switch (marker.action) {
-            
-            case visualization_msgs::Marker::ADD:
-            
-                marker.action = visualization_msgs::Marker::DELETE;
-            
-                break;
+    ros::Publisher marker_pub_;
 
-            case visualization_msgs::Marker::DELETE:
+    void publish(const visualization_msgs::Marker& marker) {
 
-                cycler.next();
-                marker = prepare_marker(cycler.getCurrentPosition());
-                marker.action = visualization_msgs::Marker::ADD;
-            
-                break;
-        } 
-
-        // Publish the marker
-        while (marker_pub.getNumSubscribers() < 1)
-        {
-            if (!ros::ok())
-            {
-                return 0;
+        while (marker_pub_.getNumSubscribers() < 1) {
+            if (!ros::ok()) {
+                return;
             }
             ROS_WARN_ONCE("Please create a subscriber to the marker");
             sleep(1);
         }
-        marker_pub.publish(marker);
+        marker_pub_.publish(marker);
 
-        r.sleep();
     }
+
+public:
+
+    explicit MarkerManager(ros::NodeHandle n) {
+        
+        marker_pub_ = n.advertise<visualization_msgs::Marker>("visualization_marker", 5);
+
+        auto marker = prepare_marker(PICKUP_POS);
+        marker.action = visualization_msgs::Marker::ADD;
+        publish(marker);
+    }
+
+    void on_state_changed(const std_msgs::String& state_msg) {
+
+        const char *s = state_msg.data.c_str();
+
+        if (std::strcmp(s, "at_pickup") == 0) {
+
+            auto marker = prepare_marker(PICKUP_POS);
+            marker.action = visualization_msgs::Marker::DELETE;
+            publish(marker);
+            
+        } else if (std::strcmp(s, "at_dropoff") == 0) {
+
+            auto marker = prepare_marker(DROPOFF_POS);
+            marker.action = visualization_msgs::Marker::ADD;
+            publish(marker);
+        }
+
+     }
+
+};
+
+int main(int argc, char **argv)
+{
+    ros::init(argc, argv, "sync_markers");
+    ros::NodeHandle this_node;
+
+    MarkerManager manager{this_node};
+
+    ros::Subscriber odom_sub = this_node.subscribe("/home_service_robot/robot_state", 5, &MarkerManager::on_state_changed, &manager);
+
+    ros::spin();
 }
